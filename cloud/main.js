@@ -24,8 +24,8 @@ Parse.Cloud.define('sum', function(request, response) {
 Parse.Cloud.define("getAninews", function(request, response) {
 	var AninewsQuery =new Parse.Query("Aninews");
 	var AninewsUsername =request.params.AninewsUsername;
-	bookQuery.equalTo("ownerUsername",AninewsUsername);
-	bookQuery.aggregate([{
+	AninewsQuery.equalTo("ownerUsername",AninewsUsername);
+	AninewsQuery.aggregate([{
 			ownerUsername : AninewsUsername, 
 			Aninews_NO : {$sum : 1},
 			success: function(results){
