@@ -21,20 +21,24 @@ Parse.Cloud.define('sum', function(request, response) {
 });
 
 Parse.Cloud.define("getAninews", function(request, response) {
-	var AninewsQuery =new Parse.Query("Aninews");
-	var AninewsUsername =request.params.AninewsUsername;
-	//AninewsQuery.equalTo("ownerUsername",AninewsUsername);
-	var matrix =AninewsQuery.aggregate(
-	[{
-		$match:{"ownerUsername":"AninewsUsername"}
-	},
-	{
-		$group:{
-			_id : "$ownerUsername", 
-			Aninews_NO : {$sum : 1}
-		}
-	}]);
-	response.success(matrix);
+        var AninewsQuery =new Parse.Query("Aninews");
+        var AninewsUsername =request.params.AninewsUsername;
+        //AninewsQuery.equalTo("ownerUsername",AninewsUsername);
+        AninewsQuery.aggregate(
+                [{
+                        $match:{"ownerUsername":"AninewsUsername"}
+                },
+                        {
+                                $group:{
+                                        _id : "$ownerUsername", 
+                                        Aninews_NO : {$sum : 1}
+                                }
+                        }]);
+        AninewsQuery.find()
+                .then(function(results) {
+                })
+                .catch(function(error) {
+                });
 });
 
 Parse.Cloud.define('queryTest',function(req, res){
