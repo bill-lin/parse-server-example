@@ -23,20 +23,20 @@ Parse.Cloud.define('sum', function(request, response) {
 Parse.Cloud.define("getAninews", function(request, response) {
 	var AninewsQuery =new Parse.Query("Aninews");
 	var AninewsUsername =request.params.AninewsUsername;
-	AninewsQuery.equalTo("ownerUsername",AninewsUsername);
+	//AninewsQuery.equalTo("ownerUsername",AninewsUsername);
 	AninewsQuery.aggregate(
 	[{
 		$match:{ownerUsername:AninewsUsername}
 	},
 	{
 		$group:{
-			_id : 1, 
+			_id : "$ownerUsername", 
 			Aninews_NO : {$sum : 1},
 			success: function(results){
-				response.success("User "+ownerUsername+" Aninews number: "+Aninews_NO);
+				response.success("User "+_id+" Aninews number: "+Aninews_NO);
 			},
 			error: function(){
-				response.error("User does not exist "+AninewsUsername);
+				response.error("User does not exist "+_id);
 			}
 		}
 	}]);
