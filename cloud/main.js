@@ -24,22 +24,17 @@ Parse.Cloud.define("getAninews", function(request, response) {
 	var AninewsQuery =new Parse.Query("Aninews");
 	var AninewsUsername =request.params.AninewsUsername;
 	//AninewsQuery.equalTo("ownerUsername",AninewsUsername);
-	AninewsQuery.aggregate(
+	var matrix =AninewsQuery.aggregate(
 	[{
 		$match:{"ownerUsername":"AninewsUsername"}
 	},
 	{
 		$group:{
 			_id : "$ownerUsername", 
-			Aninews_NO : {$sum : 1},
-			success: function(results){
-				response.success("User "+_id+" Aninews number: "+Aninews_NO);
-			},
-			error: function(){
-				response.error("User does not exist "+_id);
-			}
+			Aninews_NO : {$sum : 1}
 		}
 	}]);
+	response.success(matrix);
 });
 
 Parse.Cloud.define('queryTest',function(req, res){
