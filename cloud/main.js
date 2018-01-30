@@ -26,7 +26,7 @@ Parse.Cloud.define("getAninews", function(request, response) {
 	//AninewsQuery.equalTo("ownerUsername",AninewsUsername);
 	AninewsQuery.aggregate(
 	[{
-		$match:{ownerUsername:AninewsUsername}
+		$match:{"ownerUsername":"AninewsUsername"}
 	},
 	{
 		$group:{
