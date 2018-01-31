@@ -31,6 +31,18 @@ Parse.Cloud.define("getAninews", function(request, response) {
         });
 });
 
+Parse.Cloud.define("testgetAninews", function(request, response) {
+        var AninewsQuery =new Parse.Query("Aninews");
+        // var AninewsUsername =request.params.AninewsUsername;
+        // AninewsQuery.equalTo("ownerUsername",AninewsUsername);
+        var matrix=[];
+        matrix.push(
+                AninewsQuery.count()
+        );
+                response.success(matrix);
+
+});
+
 Parse.Cloud.define('queryTest',function(req, res){
   	var bookQuery = new Parse.Query("PublishedBook");
 
