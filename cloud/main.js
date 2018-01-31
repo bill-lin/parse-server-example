@@ -21,11 +21,11 @@ Parse.Cloud.define('sum', function(request, response) {
 });
 
 Parse.Cloud.define("getAninews", function(request, response) {
-        var publishedBookQuery =new Parse.Query("Aninews");
+        var AninewsQuery =new Parse.Query("Aninews");
         var username=request.params.username;
         console.log("search with ids:"+username);
-        publishedBookQuery.equalTo("ownerUsername",username);
-        publishedBookQuery.count({
+        AninewsQuery.equalTo("ownerUsername",username);
+        AninewsQuery.count({
                         success: function(results) {
                                 response.success("User "+ username + " have "+results+ " Aninews");
                 },
