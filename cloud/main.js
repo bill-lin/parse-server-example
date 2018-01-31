@@ -21,26 +21,18 @@ Parse.Cloud.define('sum', function(request, response) {
 });
 
 Parse.Cloud.define("getAninews", function(request, response) {
-        var AninewsQuery =new Parse.Query("Aninews");
-        var AninewsUsername =request.params.AninewsUsername;
-        // AninewsQuery.equalTo("ownerUsername",AninewsUsername);
-        var matrix= AninewsQuery.count({
-                "ownerUsername" :"AninewsUsername"
-        }).then(function(count){
-                response.success("User "+ AninewsUsername+ " have "+matrix+ " Aninews");
+        var publishedBookQuery =new Parse.Query("Aninews");
+        var username=request.params.username;
+        console.log("search with ids:"+username);
+        publishedBookQuery.equalTo("ownerUsername",username);
+        publishedBookQuery.count({
+                        success: function(results) {
+                                response.success("User "+ username + " have "+results+ " Aninews");
+                },
+                error: function() {
+                        response.error("User "+username+" doesn't exist!");
+                }
         });
-});
-
-Parse.Cloud.define("testgetAninews", function(request, response) {
-        var AninewsQuery =new Parse.Query("Aninews");
-        // var AninewsUsername =request.params.AninewsUsername;
-        // AninewsQuery.equalTo("ownerUsername",AninewsUsername);
-        var matrix=[];
-        matrix.push(
-                AninewsQuery.count()
-        );
-                response.success(matrix);
-
 });
 
 Parse.Cloud.define('queryTest',function(req, res){
