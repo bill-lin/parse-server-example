@@ -67,11 +67,11 @@ Parse.Cloud.define("updateBook", function(request, response) {
                      book.set("clubGuid", clubGuid);
                      book.set("AddToClubDate", new Date());
                      if(oldClubGuid != clubGuid){
-                       book.set("isClubFeatured", false);
+                       book.set("clubFeatured", false);
                      }
                  } else {
                      book.set("clubGuid", "None");
-                     book.set("isClubFeatured", false);
+                     book.set("clubFeatured", false);
                  }
                  updatePromises.push(book.save(null, {useMasterKey: true}));
              }
@@ -113,7 +113,7 @@ Parse.Cloud.define("updateClubFeaturedBook", function(request, response) {
              var updatePromises = [];
              var book = results[0];
              if(book) {
-                book.set("isClubFeatured", clubFeatured);
+                book.set("clubFeatured", clubFeatured);
                  updatePromises.push(book.save(null, {useMasterKey: true}));
              }else{
                 throw new Error("Book Not found");
