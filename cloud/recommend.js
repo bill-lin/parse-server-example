@@ -3,7 +3,7 @@
 
 // get recommended books for a user
 const MAX_NUMBER_OF_DAYS = 45;
-const MAX_NUMBER_OF_BOOKS_PER_GROUP = 4;
+const MAX_NUMBER_OF_BOOKS_PER_GROUP = 3;
 const MAX_NUMBER_OF_READ = 20;
 const MIN_NUMBER_OF_PAGE = 5;
 
