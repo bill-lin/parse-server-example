@@ -152,7 +152,7 @@ Parse.Cloud.define("incrementFeaturedBookLike", function(request, response) {
 Parse.Cloud.define("incrementBookShareCount", function(request, response) {
     var bookQuery = new Parse.Query("PublishedBook");
     var username = request.params.username;
-    var bookGuid = request.params.bookGuid;
+    var bookId = request.params.bookGuid;
     bookQuery.equalTo("guid", bookId);
     bookQuery.limit(1);
     bookQuery.find({
