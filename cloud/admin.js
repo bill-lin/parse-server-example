@@ -66,8 +66,12 @@ Parse.Cloud.define("updateBook", function(request, response) {
                  if (clubGuid) {
                      book.set("clubGuid", clubGuid);
                      book.set("AddToClubDate", new Date());
+                     if(oldClubGuid != clubGuid){
+                       book.set("isClubFeatured", false);
+                     }
                  } else {
                      book.set("clubGuid", "None");
+                     book.set("isClubFeatured", false);
                  }
                  updatePromises.push(book.save(null, {useMasterKey: true}));
              }
@@ -93,6 +97,37 @@ Parse.Cloud.define("updateBook", function(request, response) {
                           response.error(error);
           });
 });
+
+Parse.Cloud.define("updateClubFeaturedBook", function(request, response) {
+        var publishedBookQuery =new Parse.Query("PublishedBook");
+        var bookId =request.params.bookGuId;
+        var clubGuid=request.params.clubGuid;
+        var clubFeatured=request.params.isFeatured;
+
+        console.log("search with ids:"+bookId);
+        publishedBookQuery.equalTo("guid",bookId);
+        publishedBookQuery.equalTo("clubGuid",clubGuid);
+        publishedBookQuery.limit(1);
+        publishedBookQuery.find()
+         .then(function(results){
+             var updatePromises = [];
+             var book = results[0];
+             if(book) {
+                book.set("isClubFeatured", clubFeatured);
+                 updatePromises.push(book.save(null, {useMasterKey: true}));
+             }else{
+                throw new Error("Book Not found");
+             }
+            return Parse.Promise.when(updatePromises);
+          })
+         .then(function(results){
+             response.success("book updated");
+          }, function(error) {
+              console.log("error:" + error);
+              response.error(error);
+          });
+});
+
 
 function updateAniclubBookCount(clubGuid){
 		var promises = [];
