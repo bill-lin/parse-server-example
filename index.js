@@ -5,7 +5,7 @@
 var express = require('express');
 var ParseServer = require('parse-server').ParseServer;
 var S3Adapter = require('parse-server').S3Adapter;
-var OSSAdapter = require('parse-server-oss-adapter');
+//var OSSAdapter = require('parse-server-oss-adapter');
 
 var OssS3Adapter = require('./lib/oss_s3_adapter');
 
@@ -26,12 +26,12 @@ var s3Adapter = new S3Adapter(
                       { directAccess: true }
                     );
 
-var ossAdapter = new OSSAdapter(
-                      process.env.OOS_ACCESS_KEY ||"OSS_ACCESS_KEY_ID",
-                      process.env.OOS_SECRET_KEY ||"OSS_SECRET_ACCESS_KEY",
-                      process.env.OOS_BUCKET || 'OSS_BUCKET_NAME',
-                      { directAccess: true }
-                    );
+//var ossAdapter = new OSSAdapter(
+//                      process.env.OOS_ACCESS_KEY ||"OSS_ACCESS_KEY_ID",
+//                      process.env.OOS_SECRET_KEY ||"OSS_SECRET_ACCESS_KEY",
+//                      process.env.OOS_BUCKET || 'OSS_BUCKET_NAME',
+//                      { directAccess: true }
+//                    );
 
 var api = new ParseServer({
   databaseURI: databaseUri || 'mongodb://localhost:27017/dev',
