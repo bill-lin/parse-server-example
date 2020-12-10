@@ -14,7 +14,9 @@
     "newrelic": "^1.30.0",
     "parse": "~1.11.1",
     "parse-server": "2.8.4",
-    "parse-server-oss-adapter": "1.0.0"
+    "parse-server-oss-adapter": "1.0.0",
+    "parse-server-s3-adapter": "1.2.0"
+    
   },
   "scripts": {
     "start": "node index.js"
